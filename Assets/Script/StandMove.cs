@@ -7,6 +7,7 @@ public class StandMove : MonoBehaviour
     [SerializeField] Transform baseUp;
     [SerializeField] Transform b1;
     [SerializeField] Transform b2;
+    [SerializeField] int FPS = 30;
 
     private bool bW, bC, b1W, b1C, b2W, b2C;
 
@@ -15,7 +16,7 @@ public class StandMove : MonoBehaviour
     public float vel3 = 1f;
     void Start()
     {
-
+        Application.targetFrameRate = FPS;
     }
 
     void Update()
