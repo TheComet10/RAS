@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
     {
         mainMenu.SetActive(true);
         selMenu.SetActive(false);
+        Application.targetFrameRate = 30;
     }
 
     public void StartB1()
