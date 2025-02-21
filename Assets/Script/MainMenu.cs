@@ -13,6 +13,21 @@ public class MainMenu : MonoBehaviour
         Application.targetFrameRate = 30;
     }
 
+    private void Update()
+    {
+
+        if ((mainMenu.activeSelf == true) && (Input.GetKeyDown(KeyCode.Escape)) && (selMenu.activeSelf == false))
+        {
+            Application.Quit();
+        }
+        else if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            mainMenu.SetActive(true);
+            
+            selMenu.SetActive(false);
+        }
+    }
+
     public void StartB1()
     {
         SceneManager.LoadScene(1);
