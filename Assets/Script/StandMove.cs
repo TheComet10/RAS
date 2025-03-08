@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class StandMove : MonoBehaviour
 {
@@ -43,10 +44,10 @@ public class StandMove : MonoBehaviour
         if ((Input.GetKey(KeyCode.D)) || b2C == true)
             b2.Rotate(0f, vel3 * -45f * Time.deltaTime, 0f);
         //r1
-        if ((Input.GetKey(KeyCode.R))/* || r1W == true*/)
+        if ((Input.GetKey(KeyCode.R)) || r1W == true)
             r1.Rotate(vel4 * 45f * Time.deltaTime, 0f, 0f);
 
-        if ((Input.GetKey(KeyCode.F))/* || r1C == true*/)
+        if ((Input.GetKey(KeyCode.F)) || r1C == true)
             r1.Rotate(vel4 * -45f * Time.deltaTime, 0f, 0f);
 
 
@@ -124,16 +125,44 @@ public class StandMove : MonoBehaviour
         r1C = false;
     }
 
-    public void SliderChange1(float value1)
+    public void V1A()
     {
-        vel1 = value1;
+        if (vel1 < 2)
+            vel1 = vel1 + 0.1f;
     }
-    public void SliderChange2(float value2)
+    public void V1S()
     {
-        vel2 = value2;
+        if (vel1 > 0)
+            vel1 = vel1 - 0.1f;
     }
-    public void SliderChange3(float value3)
+    public void V2A()
     {
-        vel3 = value3;
+        if (vel2 < 2)
+            vel2 = vel2 + 0.1f;
+    }
+    public void V2S()
+    {
+        if (vel2 > 0)
+            vel2 = vel2 - 0.1f;
+    }
+    public void V3A()
+    {
+        if (vel3 < 2)
+            vel3 = vel3 + 0.1f;
+    }
+    public void V3S()
+    {
+        if (vel3 > 0)
+            vel3 = vel3 - 0.1f;
+    }
+    public void V4A()
+    {
+        if (vel4 < 2)
+            vel4 = vel4 + 0.1f;
+    }
+    public void V4S()
+    {
+        if (vel4 > 0)
+            vel4 = vel4 - 0.1f;
     }
 }
