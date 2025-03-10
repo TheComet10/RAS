@@ -17,6 +17,10 @@ public class StandMove : MonoBehaviour
     public float vel2 = 1f;
     public float vel3 = 1f;
     public float vel4 = 1f;
+
+    private int defStep, clock;                                  //clock is step per second
+    private bool dir = false, en = false, ms1, ms2;
+
     void Start()
     {
         Application.targetFrameRate = FPS;
@@ -26,7 +30,7 @@ public class StandMove : MonoBehaviour
     {
         //base
         if((Input.GetKey(KeyCode.Q)) || (bW == true))
-            baseUp.Rotate(0f, 0f, vel1 * 45f *  Time.deltaTime);
+            baseUp.Rotate(0f, 0f, vel1 * 45f *  Time.deltaTime); //rotate 45 degrees per second
 
         if ((Input.GetKey(KeyCode.A)) || (bC == true))
             baseUp.Rotate(0f, 0f, vel1 * -45f * Time.deltaTime);
@@ -53,6 +57,36 @@ public class StandMove : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Escape))
             SceneManager.LoadScene(0);
+    }
+
+    float curStepToDeg(int step, bool ms1, bool ms2)
+    {
+        float curStep;
+
+        if(ms1 == true)
+        {
+            if(ms2 == true)
+            {
+                curStep = step * 16;
+            }
+            else
+            {
+                curStep = step * 2;
+            }
+        }
+        else
+        {
+            if (ms2 == true)
+            {
+                curStep = step * 4;
+            }
+            else
+            {
+                curStep = step * 8;
+            }
+        }
+
+        return (360/curStep); //returns degrees per steps
     }
 
     public void BaseCwD()
