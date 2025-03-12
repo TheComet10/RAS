@@ -74,7 +74,7 @@ public partial class MainWindow : Window
             try
             {
                 WebClient webClient = new WebClient();
-                Version onlineVersion = new Version(webClient.DownloadString("https://drive.google.com/uc?export=download&id=1YZTaUODQYsLlj_F0MIzNhDRXwW6rwgom"));
+                Version onlineVersion = new Version(webClient.DownloadString("https://www.dropbox.com/scl/fi/ebnh3ghmzpfodn99wgqcl/version.txt?rlkey=cwlgixkpz5pt4tf6fm1ye39vb&st=dhk1xx3z&dl=1"));
 
                 if (onlineVersion.IsDifferentThan(localVersion))
                 {
@@ -109,11 +109,11 @@ public partial class MainWindow : Window
             else
             {
                 Status = LauncherStatus.downloadingApp;
-                _onlineVersion = new Version(webClient.DownloadString("https://drive.google.com/uc?export=download&id=1YZTaUODQYsLlj_F0MIzNhDRXwW6rwgom"));
+                _onlineVersion = new Version(webClient.DownloadString("https://www.dropbox.com/scl/fi/ebnh3ghmzpfodn99wgqcl/version.txt?rlkey=cwlgixkpz5pt4tf6fm1ye39vb&st=dhk1xx3z&dl=1"));
             }
 
             webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadAppCompletedCallback);
-            webClient.DownloadFileAsync(new Uri("https://drive.google.com/uc?export=download&id=1hkIAIG1iQ230sz4Gh0BA9fuTF7BUR1dc"), appZip, _onlineVersion);
+            webClient.DownloadFileAsync(new Uri("https://www.dropbox.com/scl/fi/6nbjatt0qot9nwizbmglt/brs.zip?rlkey=bzam1b0qhg51hxfi0bvnuwk3w&st=vc6cxkt0&dl=1"), appZip, _onlineVersion);
         }
         catch (Exception ex)
         {
