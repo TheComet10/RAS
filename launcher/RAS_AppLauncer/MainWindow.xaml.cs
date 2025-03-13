@@ -22,7 +22,7 @@ enum LauncherStatus
 /// </summary>
 public partial class MainWindow : Window
 {
-    private string rootPath;
+    private string rootPath = Directory.GetCurrentDirectory();
     private string versionFile;
     private string appZip;
     private string appExe;
@@ -57,8 +57,18 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        if (rootPath == Directory.GetCurrentDirectory())
+        {
+            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
+            dialog.InitialDirectory = Directory.GetCurrentDirectory();
+            System.Windows.Forms.DialogResult result = dialog.ShowDialog();
 
-        rootPath = Directory.GetCurrentDirectory();
+            if (result == System.Windows.Forms.DialogResult.OK)
+                rootPath = dialog.SelectedPath;
+            else
+                rootPath = Directory.GetCurrentDirectory();
+        }
+        
         versionFile = Path.Combine(rootPath, "version.txt");
         appZip = Path.Combine(rootPath, "brs.zip");
         appExe = Path.Combine(rootPath, "brs", "Robotic Arm Simulator.exe");
@@ -88,7 +98,7 @@ public partial class MainWindow : Window
             catch (Exception ex)
             {
                 Status = LauncherStatus.failed;
-                MessageBox.Show($"Error checking for app updates: {ex}");
+                System.Windows.MessageBox.Show($"Error checking for app updates: {ex}");
             }
         }
         else
@@ -118,7 +128,7 @@ public partial class MainWindow : Window
         catch (Exception ex)
         {
             Status = LauncherStatus.failed;
-            MessageBox.Show($"Error installing app files: {ex}");
+            System.Windows.MessageBox.Show($"Error installing app files: {ex}");
         }
     }
 
@@ -138,7 +148,7 @@ public partial class MainWindow : Window
         catch (Exception ex)
         {
             Status = LauncherStatus.failed;
-            MessageBox.Show($"Error finishing download: {ex}");
+            System.Windows.MessageBox.Show($"Error finishing download: {ex}");
         }
     }
 
