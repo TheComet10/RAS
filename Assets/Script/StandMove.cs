@@ -18,75 +18,68 @@ public class StandMove : MonoBehaviour
     public float vel3 = 1f;
     public float vel4 = 1f;
 
-    private int defStep, clock;                                  //clock is step per second
-    private bool dir = false, en = false, ms1, ms2;
+    public int defStep;
+    private float[] clock = { 200f, 200f, 200f, 200f };                                  //clock is step per second
+    private bool[] dir = {true, true, true, true}, en = new bool[4];
+    private int[] ms1 = {0,0,0,0}, ms2 = {0,0,0,0};
 
     void Start()
     {
         Application.targetFrameRate = FPS;
+
+        defStep = 200;
     }
 
     void Update()
     {
         //base
-        if((Input.GetKey(KeyCode.Q)) || (bW == true))
-            baseUp.Rotate(0f, 0f, vel1 * 45f *  Time.deltaTime); //rotate 45 degrees per second
+        if((Input.GetKey(KeyCode.Q)) || (bW) && (!en[0]))
+            baseUp.Rotate(0f, 0f, vel1 * CurStepToDeg(defStep, ms1[0], ms2[0]) * clock[0] * Direction(dir[0]) * Time.deltaTime);
 
-        if ((Input.GetKey(KeyCode.A)) || (bC == true))
-            baseUp.Rotate(0f, 0f, vel1 * -45f * Time.deltaTime);
+        if ((Input.GetKey(KeyCode.A)) || (bC) && (!en[0]))
+            baseUp.Rotate(0f, 0f, vel1 * CurStepToDeg(defStep, ms1[0], ms2[0]) * clock[0] * Direction(!dir[0]) * Time.deltaTime);
 
         //b1 (205/-19)
-        if (((Input.GetKey(KeyCode.W)) || b1W == true) && ((b1.localRotation.eulerAngles.y <= 205f) || (b1.localRotation.eulerAngles.y > 339f)))
-            b1.Rotate(0f, vel2 * 45f * Time.deltaTime, 0f);
+        if (((Input.GetKey(KeyCode.W)) || b1W) && (!en[1]))
+            b1.Rotate(0f, vel2 * CurStepToDeg(defStep, ms1[1], ms2[1]) * clock[1] * Direction(dir[1]) * Time.deltaTime, 0f);
 
-        if (((Input.GetKey(KeyCode.S)) || b1C == true) && ((b1.localRotation.eulerAngles.y < 206f) || (b1.localRotation.eulerAngles.y >= 340f)))
-            b1.Rotate(0f, vel2 * -45f * Time.deltaTime, 0f);
+        if (((Input.GetKey(KeyCode.S)) || b1C) && (!en[1]))
+            b1.Rotate(0f, vel2 * CurStepToDeg(defStep, ms1[1], ms2[1]) * clock[1] * Direction(!dir[1]) * Time.deltaTime, 0f);
         //b2
-        if ((Input.GetKey(KeyCode.E)) || b2W == true)
-            b2.Rotate(0f, vel3 * 45f * Time.deltaTime, 0f);
+        if ((Input.GetKey(KeyCode.E)) || b2W && (!en[2]))
+            b2.Rotate(0f, vel3 * CurStepToDeg(defStep, ms1[2], ms2[2]) * clock[2] * Direction(dir[2]) * Time.deltaTime, 0f);
 
-        if ((Input.GetKey(KeyCode.D)) || b2C == true)
-            b2.Rotate(0f, vel3 * -45f * Time.deltaTime, 0f);
+        if ((Input.GetKey(KeyCode.D)) || b2C && (!en[2]))
+            b2.Rotate(0f, vel3 * CurStepToDeg(defStep, ms1[2], ms2[2]) * clock[2] * Direction(!dir[2]) * Time.deltaTime, 0f);
         //r1
-        if ((Input.GetKey(KeyCode.R)) || r1W == true)
-            r1.Rotate(vel4 * 45f * Time.deltaTime, 0f, 0f);
+        if ((Input.GetKey(KeyCode.R)) || r1W && (!en[3]))
+            r1.Rotate(vel4 * CurStepToDeg(defStep, ms1[3], ms2[3]) * clock[3] * Direction(dir[3]) * Time.deltaTime, 0f, 0f);
 
-        if ((Input.GetKey(KeyCode.F)) || r1C == true)
-            r1.Rotate(vel4 * -45f * Time.deltaTime, 0f, 0f);
+        if ((Input.GetKey(KeyCode.F)) || r1C && (!en[0]))
+            r1.Rotate(vel4 * CurStepToDeg(defStep, ms1[3], ms2[3]) * clock[3] * Direction(!dir[3]) * Time.deltaTime, 0f, 0f);
 
 
         if (Input.GetKey(KeyCode.Escape))
             SceneManager.LoadScene(0);
     }
 
-    float curStepToDeg(int step, bool ms1, bool ms2)
+    float CurStepToDeg(int step, int ms1, int ms2)
     {
         float curStep;
 
-        if(ms1 == true)
-        {
-            if(ms2 == true)
-            {
-                curStep = step * 16;
-            }
-            else
-            {
-                curStep = step * 2;
-            }
-        }
-        else
-        {
-            if (ms2 == true)
-            {
-                curStep = step * 4;
-            }
-            else
-            {
-                curStep = step * 8;
-            }
-        }
+        int[,] ms = { { 8, 4 }, { 2, 16 } };
+
+        curStep = step * ms[ms1, ms2];
 
         return (360/curStep); //returns degrees per steps
+    }
+
+    float Direction(bool dir)
+    {
+        if (dir)
+            return 1f;
+        else
+            return -1f;
     }
 
     public void BaseCwD()
@@ -162,41 +155,41 @@ public class StandMove : MonoBehaviour
     public void V1A()
     {
         if (vel1 < 2)
-            vel1 = vel1 + 0.1f;
+            vel1 += 0.1f;
     }
     public void V1S()
     {
         if (vel1 > 0)
-            vel1 = vel1 - 0.1f;
+            vel1 -= 0.1f;
     }
     public void V2A()
     {
         if (vel2 < 2)
-            vel2 = vel2 + 0.1f;
+            vel2 += 0.1f;
     }
     public void V2S()
     {
         if (vel2 > 0)
-            vel2 = vel2 - 0.1f;
+            vel2 -= 0.1f;
     }
     public void V3A()
     {
         if (vel3 < 2)
-            vel3 = vel3 + 0.1f;
+            vel3 += 0.1f;
     }
     public void V3S()
     {
         if (vel3 > 0)
-            vel3 = vel3 - 0.1f;
+            vel3 -= 0.1f;
     }
     public void V4A()
     {
         if (vel4 < 2)
-            vel4 = vel4 + 0.1f;
+            vel4 += 0.1f;
     }
     public void V4S()
     {
         if (vel4 > 0)
-            vel4 = vel4 - 0.1f;
+            vel4 -= 0.1f;
     }
 }
