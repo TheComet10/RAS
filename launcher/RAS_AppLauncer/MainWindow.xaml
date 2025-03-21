@@ -11,6 +11,8 @@
     <Grid>
         <Image Stretch="UniformToFill" Source="/images/3d-rendering-hexagonal-texture-background.jpg"></Image>
         <TextBlock Name="VersionText" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20" Foreground="White" Margin="0, 0, 5, 0"></TextBlock>
-        <Button Name="StartButton" Content="Checking For Updates" Click="StartButton_Click" Height="60" FontSize="28" FontWeight="Bold" Foreground="#DDFFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="150" Background="#FF701C1C" Padding="10,1,10,1" UseLayoutRounding="True" ScrollViewer.CanContentScroll="True"/>
+        <TextBlock Name="Title" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="55" Foreground="White" Margin="0,87,0,0" Text="Robotic Arm Simulator" FontFamily="Impact"/>
+        <Button Name="StartButton" Content="Checking For Updates" Click="StartButton_Click" Height="60" FontSize="28" FontWeight="Bold" Foreground="#DDFFFFFF" VerticalAlignment="Top" HorizontalAlignment="Center" MinWidth="150" Background="#FF701C1C" Padding="10,1,10,1" UseLayoutRounding="True" ScrollViewer.CanContentScroll="True" Margin="0,264,0,0"/>
+        <Button Name="ChageDirBut" Content="Change Folder" Click="ChangeDir_Click" Height="30" FontSize="20" FontWeight="Bold" Foreground="#DDFFFFFF" VerticalAlignment="Bottom" HorizontalAlignment="Left" MinWidth="60" Background="#FF701C1C" Padding="10, 1, 10, 1" UseLayoutRounding="True" ScrollViewer.CanContentScroll="True" Margin="10,0,0,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
     </Grid>
 </Window>

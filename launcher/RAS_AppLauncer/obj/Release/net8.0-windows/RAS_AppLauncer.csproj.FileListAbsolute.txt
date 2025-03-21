@@ -21,3 +21,4 @@ D:\gh\braccioh\RAS\launcher\RAS_AppLauncer\obj\Release\net8.0-windows\RAS_AppLau
 D:\gh\braccioh\RAS\launcher\RAS_AppLauncer\obj\Release\net8.0-windows\RAS_AppLauncer.genruntimeconfig.cache
 D:\gh\braccioh\RAS\launcher\RAS_AppLauncer\obj\Release\net8.0-windows\ref\RAS_AppLauncer.dll
 D:\gh\braccioh\RAS\launcher\RAS_AppLauncer\bin\Release\net8.0-windows\RAS_AppLauncer.dll.config
+D:\gh\braccioh\RAS\launcher\RAS_AppLauncer\obj\Release\net8.0-windows\RAS_AppLauncer.csproj.AssemblyReference.cache

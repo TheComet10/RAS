@@ -3,9 +3,11 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.IO.Packaging;
 using System.Net;
 using System.Net.Http;
 using System.Windows;
+using Windows.Storage;
 
 namespace RAS_AppLauncer;
 
@@ -24,8 +26,10 @@ public partial class MainWindow : Window
 {
     private string rootPath = Directory.GetCurrentDirectory();
     private string versionFile;
+    private string folderDir;
     private string appZip;
     private string appExe;
+    Windows.Storage.StorageFolder localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
 
     private LauncherStatus _status;
     internal LauncherStatus Status
@@ -57,21 +61,21 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        if (rootPath == Directory.GetCurrentDirectory())
+        if(!Directory.Exists("RAS"))
         {
-            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
-            dialog.InitialDirectory = Directory.GetCurrentDirectory();
-            System.Windows.Forms.DialogResult result = dialog.ShowDialog();
-
-            if (result == System.Windows.Forms.DialogResult.OK)
-                rootPath = dialog.SelectedPath;
-            else
-                rootPath = Directory.GetCurrentDirectory();
+            Directory.CreateDirectory("RAS");
         }
-        
+
+        rootPath = "RAS";
         versionFile = Path.Combine(rootPath, "version.txt");
         appZip = Path.Combine(rootPath, "brs.zip");
         appExe = Path.Combine(rootPath, "brs", "Robotic Arm Simulator.exe");
+    }
+
+    async void WriteTimestamp()
+    {
+        StorageFile folderFile = await localFolder.CreateFileAsync("dataFile.txt", CreationCollisionOption.ReplaceExisting);
+        await FileIO.WriteTextAsync(folderFile, Directory.GetCurrentDirectory());
     }
 
     private void CheckForUpdates()
@@ -243,5 +247,29 @@ public partial class MainWindow : Window
         {
             return $"{major}.{minor}.{subMinor}.{bugFix}";
         }
+    }
+
+    string ChangeDir(string curDir)
+    {
+        string newDir;
+        /*if (rootPath == Directory.GetCurrentDirectory())   //chose folder
+        {
+            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
+            dialog.InitialDirectory = Directory.GetCurrentDirectory();
+            System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+
+            if (result == System.Windows.Forms.DialogResult.OK)
+                newDir = dialog.SelectedPath;
+            else
+                newDir = curDir;
+        }
+        
+        */
+        return newDir = null;
+    }
+
+    private void ChangeDir_Click(object sender, RoutedEventArgs e)
+    {
+
     }
 }
