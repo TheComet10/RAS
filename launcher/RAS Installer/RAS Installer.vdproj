@@ -80,6 +80,27 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 e x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.CoreRuntime.8.0.x86"
+                    {
+                    "Name" = "8:Runtime di .NET 8.0.14 (x86)"
+                    "ProductCode" = "8:Microsoft.NetCore.CoreRuntime.8.0.x86"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -210,7 +231,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:RAS Installer"
         "ProductCode" = "8:{36569F49-F385-45D6-AA9D-79D3EE3AF724}"
-        "PackageCode" = "8:{2DE59080-BDEC-4914-9423-337255D8A539}"
+        "PackageCode" = "8:{5FB8B258-9040-4BE6-BB92-85A0544B112B}"
         "UpgradeCode" = "8:{F39E2203-F5A2-4C48-9DCF-E17997443288}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
