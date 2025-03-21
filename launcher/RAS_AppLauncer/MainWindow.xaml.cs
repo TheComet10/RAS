@@ -6,6 +6,7 @@ using System.IO.Compression;
 using System.IO.Packaging;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows;
 using Windows.Storage;
 
@@ -15,6 +16,8 @@ enum LauncherStatus
 {
     ready,
     failed,
+    toDownload,
+    readyToDownload,
     downloadingApp,
     downloadingUpdate
 }
@@ -28,6 +31,7 @@ public partial class MainWindow : Window
     private string appVerFile;
     private string appZip;
     private string appExe;
+    private bool ready = false;
 
     private LauncherStatus _status;
     internal LauncherStatus Status
@@ -43,6 +47,9 @@ public partial class MainWindow : Window
                     break;
                 case LauncherStatus.failed:
                     StartButton.Content = "Update Failed - Retry";
+                    break;
+                case LauncherStatus.toDownload:
+                    StartButton.Content = "Download The Update: OK";
                     break;
                 case LauncherStatus.downloadingApp:
                     StartButton.Content = "Downloading App";
@@ -74,6 +81,7 @@ public partial class MainWindow : Window
     {
         if (File.Exists(appVerFile))
         {
+            Status = LauncherStatus.toDownload;
             Version localVersion = new Version(File.ReadAllText(appVerFile));
             VersionText.Text = localVersion.ToString();
 
@@ -84,6 +92,7 @@ public partial class MainWindow : Window
 
                 if (onlineVersion.IsDifferentThan(localVersion))
                 {
+                    CancelButton.Visibility = Visibility.Visible;
                     InstallAppFiles(true, onlineVersion);
                 }
                 else
@@ -99,27 +108,33 @@ public partial class MainWindow : Window
         }
         else
         {
+            ready = true;
             InstallAppFiles(false, Version.zero);
         }
     }
 
-    private void InstallAppFiles(bool _isUpdate, Version _onlineVersion)
+    private async Task InstallAppFiles(bool _isUpdate, Version _onlineVersion)
     {
         try
         {
             WebClient webClient = new WebClient();
-            if(_isUpdate)
+            if(Status == LauncherStatus.readyToDownload || ready)
             {
-                Status = LauncherStatus.downloadingUpdate;
-            }
-            else
-            {
-                Status = LauncherStatus.downloadingApp;
-                _onlineVersion = new Version(webClient.DownloadString("https://www.dropbox.com/scl/fi/ebnh3ghmzpfodn99wgqcl/version.txt?rlkey=cwlgixkpz5pt4tf6fm1ye39vb&st=dhk1xx3z&dl=1"));
-            }
+                CancelButton.Visibility = Visibility.Hidden;
 
-            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadAppCompletedCallback);
-            webClient.DownloadFileAsync(new Uri("https://www.dropbox.com/scl/fi/6nbjatt0qot9nwizbmglt/brs.zip?rlkey=bzam1b0qhg51hxfi0bvnuwk3w&st=vc6cxkt0&dl=1"), appZip, _onlineVersion);
+                if(_isUpdate)
+                {
+                    Status = LauncherStatus.downloadingUpdate;
+                }
+                else
+                {
+                    Status = LauncherStatus.downloadingApp;
+                    _onlineVersion = new Version(webClient.DownloadString("https://www.dropbox.com/scl/fi/ebnh3ghmzpfodn99wgqcl/version.txt?rlkey=cwlgixkpz5pt4tf6fm1ye39vb&st=dhk1xx3z&dl=1"));
+                }
+                
+                webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadAppCompletedCallback);
+                webClient.DownloadFileAsync(new Uri("https://www.dropbox.com/scl/fi/6nbjatt0qot9nwizbmglt/brs.zip?rlkey=bzam1b0qhg51hxfi0bvnuwk3w&st=vc6cxkt0&dl=1"), appZip, _onlineVersion);
+            }
         }
         catch (Exception ex)
         {
@@ -163,9 +178,24 @@ public partial class MainWindow : Window
 
             Close();
         }
-        else if(Status == LauncherStatus.failed)
+        else if(Status == LauncherStatus.toDownload)
+        {
+            Status = LauncherStatus.readyToDownload;
+            ready = true;
+            CheckForUpdates();
+        }
+        else if (Status == LauncherStatus.failed)
         {
             CheckForUpdates();
+        }
+    }
+
+    private void CancelButton_Click(object sender, RoutedEventArgs e)
+    {
+        if(Status == LauncherStatus.toDownload)
+        {
+            CancelButton.Visibility = Visibility.Hidden;
+            Status = LauncherStatus.ready;
         }
     }
 
