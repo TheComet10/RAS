@@ -25,6 +25,12 @@
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_73F0F1BC8C0D4BFDBF9955B408D8BDDE"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -84,16 +90,11 @@
             {
             "Enabled" = "11:TRUE"
             "PromptEnabled" = "11:TRUE"
-            "PrerequisitesLocation" = "2:1"
+            "PrerequisitesLocation" = "2:2"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
-                    {
-                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 e x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
-                    }
                     "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.CoreRuntime.8.0.x86"
                     {
                     "Name" = "8:Runtime di .NET 8.0.14 (x86)"
@@ -107,6 +108,20 @@
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_45CFC433CF0B4068B74FE47334F5538A"
+            {
+            "Name" = "8:dotnet-runtime-8.0.14-win-x86.exe"
+            "Condition" = "8:"
+            "Object" = "8:_73F0F1BC8C0D4BFDBF9955B408D8BDDE"
+            "FileType" = "3:2"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:/Install /quiet /norestart"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_DDA7326D_1A4E_4CC7_9FEE_99B672B72044"
+            "InstallerClass" = "11:FALSE"
+            "CustomActionData" = "8:"
+            }
         }
         "DefaultFeature"
         {
@@ -149,6 +164,26 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_73F0F1BC8C0D4BFDBF9955B408D8BDDE"
+            {
+            "SourcePath" = "8:..\\..\\..\\..\\dotnet-runtime-8.0.14-win-x86.exe"
+            "TargetName" = "8:dotnet-runtime-8.0.14-win-x86.exe"
+            "Tag" = "8:"
+            "Folder" = "8:_4121E6DE41784966B245512CE22F54EF"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:TRUE"
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
@@ -230,15 +265,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:RAS Installer"
-        "ProductCode" = "8:{36569F49-F385-45D6-AA9D-79D3EE3AF724}"
-        "PackageCode" = "8:{5FB8B258-9040-4BE6-BB92-85A0544B112B}"
+        "ProductCode" = "8:{D99B73A3-1614-47B4-A883-75209CEC812A}"
+        "PackageCode" = "8:{2BE29781-4829-451C-999B-BAFD347656A4}"
         "UpgradeCode" = "8:{F39E2203-F5A2-4C48-9DCF-E17997443288}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.2"
+        "ProductVersion" = "8:1.0.3"
         "Manufacturer" = "8:Comet Industries"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
