@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RAS_AppLauncer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+10eb2dca3bdceffdadef83c1e592746f36acce05")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+87ec4486457e71979be36d588d34e44732fa4ac2")]
 [assembly: System.Reflection.AssemblyProductAttribute("RAS_AppLauncer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RAS_AppLauncer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
