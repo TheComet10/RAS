@@ -1,4 +1,6 @@
 using UnityEngine;
+using TMPro;
+using JetBrains.Annotations;
 
 public enum UIChange
 {
@@ -10,13 +12,16 @@ public enum UIChange
 public class SetManager : MonoBehaviour
 {
     [SerializeField] int FPS = 30;
+    [SerializeField] TMP_Dropdown fpsDropDown;
 
     public GameObject SideBar;
     public GameObject SetMenu;
     public GameObject SetBut;
+
     public Transform SimuCam;
     public Transform MenuCam;
     public GameObject Camera;
+
     public StandMove sM;
 
     private UIChange _uC;
@@ -54,11 +59,13 @@ public class SetManager : MonoBehaviour
     }
 
     bool _isGamePaused = false;
+    int prevFPSDD;
 
     private void Start()
     {
         uC = UIChange.Simu;
         Application.targetFrameRate = FPS;
+        prevFPSDD = fpsDropDown.value;
     }
 
     private void Update()
@@ -76,7 +83,44 @@ public class SetManager : MonoBehaviour
                 _isGamePaused = false;
                 uC = UIChange.Simu;
                 Time.timeScale = 1f;
+                CancelOptions();
             }
         }
+    }
+
+    public void GetDropdownFPSValue()
+    {
+        switch(fpsDropDown.value)
+        {
+            case 0:
+                FPS = 15;
+                break;
+            case 1:
+                FPS = 30;
+                break;
+            case 2:
+                FPS = 60;
+                break;
+            case 3:
+                FPS = 90;
+                break;
+            case 4:
+                FPS = 120;
+                break;
+            case 5:
+                FPS = 240;
+                break;
+        }
+    }
+
+    public void SaveOptions()
+    {
+        Application.targetFrameRate = FPS;
+        prevFPSDD = fpsDropDown.value;
+    }
+
+    public void CancelOptions()
+    {
+        fpsDropDown.SetValueWithoutNotify(prevFPSDD);
     }
 }
