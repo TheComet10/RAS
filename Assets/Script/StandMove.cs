@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
+using Unity.VisualScripting;
 
 public class StandMove : MonoBehaviour
 {
@@ -9,7 +9,6 @@ public class StandMove : MonoBehaviour
     [SerializeField] Transform b1;
     [SerializeField] Transform b2;
     [SerializeField] Transform r1;
-    [SerializeField] int FPS = 30;
 
     private bool bW, bC, b1W, b1C, b2W, b2C, r1W, r1C;
 
@@ -25,8 +24,6 @@ public class StandMove : MonoBehaviour
 
     void Start()
     {
-        Application.targetFrameRate = FPS;
-
         defStep = 200;
     }
 
@@ -57,10 +54,6 @@ public class StandMove : MonoBehaviour
 
         if ((Input.GetKey(KeyCode.F)) || r1C && (!en[0]))
             r1.Rotate(vel4 * CurStepToDeg(defStep, ms1[3], ms2[3]) * clock[3] * Direction(!dir[3]) * Time.deltaTime, 0f, 0f);
-
-
-        if (Input.GetKey(KeyCode.Escape))
-            SceneManager.LoadScene(0);
     }
 
     float CurStepToDeg(int step, int ms1, int ms2)
