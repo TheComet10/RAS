@@ -59,7 +59,7 @@ public class SetManager : MonoBehaviour
     }
 
     bool _isGamePaused = false;
-    int prevFPSDD, unsavedFPS;
+    int prevFPSDD, unsavedFPS, tck1, tck2, tck3, tck4;
 
     private void Start()
     {
@@ -115,9 +115,17 @@ public class SetManager : MonoBehaviour
 
     public void SaveOptions()
     {
+        //fps
         FPS = unsavedFPS;
         Application.targetFrameRate = FPS;
         prevFPSDD = fpsDropDown.value;
+
+        //ck
+        sM.clock[0] = tck1; //aggiungi i modificatori di testo
+        sM.clock[1] = tck2;
+        sM.clock[2] = tck3;
+        sM.clock[3] = tck4;
+
         uC = UIChange.Menu;
     }
 
@@ -142,5 +150,22 @@ public class SetManager : MonoBehaviour
     public void Exit()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void Ck1(int input)
+    {
+        tck1 = input;
+    }
+    public void Ck2(int input)
+    {
+        tck2 = input;
+    }
+    public void Ck3(int input)
+    {
+        tck3 = input;
+    }
+    public void Ck4(int input)
+    {
+        tck4 = input;
     }
 }
