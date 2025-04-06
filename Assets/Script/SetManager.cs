@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using JetBrains.Annotations;
+using UnityEngine.SceneManagement;
 
 public enum UIChange
 {
@@ -16,8 +17,7 @@ public class SetManager : MonoBehaviour
 
     public GameObject SideBar;
     public GameObject SetMenu;
-    public GameObject SetBut;
-
+    public GameObject PauseMenu;
     public Transform SimuCam;
     public Transform MenuCam;
     public GameObject Camera;
@@ -35,22 +35,22 @@ public class SetManager : MonoBehaviour
             {
                 case UIChange.Simu:
                     SetMenu.SetActive(false);
+                    PauseMenu.SetActive(false);
                     SideBar.SetActive(true);
-                    SetBut.SetActive(true);
                     Camera.transform.position = SimuCam.position;
                     Camera.transform.rotation = SimuCam.rotation;
                     break;
                 case UIChange.Set:
                     SetMenu.SetActive(true);
                     SideBar.SetActive(false);
-                    SetBut.SetActive(false);
+                    PauseMenu.SetActive(false);
                     Camera.transform.position = MenuCam.position;
                     Camera.transform.rotation = MenuCam.rotation;
                     break;
                 case UIChange.Menu:
-                    SetMenu.SetActive(true);
+                    SetMenu.SetActive(false);
+                    PauseMenu.SetActive(true);
                     SideBar.SetActive(false);
-                    SetBut.SetActive(false);
                     Camera.transform.position = MenuCam.position;
                     Camera.transform.rotation = MenuCam.rotation;
                     break;
@@ -59,7 +59,7 @@ public class SetManager : MonoBehaviour
     }
 
     bool _isGamePaused = false;
-    int prevFPSDD;
+    int prevFPSDD, unsavedFPS;
 
     private void Start()
     {
@@ -81,9 +81,9 @@ public class SetManager : MonoBehaviour
             else
             {
                 _isGamePaused = false;
-                uC = UIChange.Simu;
                 Time.timeScale = 1f;
                 CancelOptions();
+                uC = UIChange.Simu;
             }
         }
     }
@@ -93,34 +93,54 @@ public class SetManager : MonoBehaviour
         switch(fpsDropDown.value)
         {
             case 0:
-                FPS = 15;
+                unsavedFPS = 15;
                 break;
             case 1:
-                FPS = 30;
+                unsavedFPS = 30;
                 break;
             case 2:
-                FPS = 60;
+                unsavedFPS = 60;
                 break;
             case 3:
-                FPS = 90;
+                unsavedFPS = 90;
                 break;
             case 4:
-                FPS = 120;
+                unsavedFPS = 120;
                 break;
             case 5:
-                FPS = 240;
+                unsavedFPS = 240;
                 break;
         }
     }
 
     public void SaveOptions()
     {
+        FPS = unsavedFPS;
         Application.targetFrameRate = FPS;
         prevFPSDD = fpsDropDown.value;
+        uC = UIChange.Menu;
     }
 
     public void CancelOptions()
     {
+        unsavedFPS = FPS;
         fpsDropDown.SetValueWithoutNotify(prevFPSDD);
+        uC = UIChange.Menu;
+    }
+
+    public void Resume()
+    {
+        uC = UIChange.Simu;
+        Time.timeScale = 1;
+    }
+
+    public void Settings()
+    {
+        uC = UIChange.Set;
+    }
+
+    public void Exit()
+    {
+        SceneManager.LoadScene(0);
     }
 }
