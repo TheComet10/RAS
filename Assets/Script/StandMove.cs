@@ -22,7 +22,7 @@ public class StandMove : MonoBehaviour
     public bool[] dir = {true, true, true, true}, en = new bool[4];
     public int[] ms1 = {0,0,0,0}, ms2 = {0,0,0,0};
 
-    void Start()
+    private void Start()
     {
         defStep = 200;
     }
@@ -36,7 +36,7 @@ public class StandMove : MonoBehaviour
         if ((Input.GetKey(KeyCode.A)) || (bC) && (!en[0]))
             baseUp.Rotate(0f, 0f, vel1 * CurStepToDeg(defStep, ms1[0], ms2[0]) * clock[0] * Direction(!dir[0]) * Time.deltaTime);
 
-        //b1 (205/-19)
+        //b1
         if (((Input.GetKey(KeyCode.W)) || b1W) && (!en[1]))
             b1.Rotate(0f, vel2 * CurStepToDeg(defStep, ms1[1], ms2[1]) * clock[1] * Direction(dir[1]) * Time.deltaTime, 0f);
 

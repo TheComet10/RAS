@@ -2,6 +2,8 @@ using UnityEngine;
 using TMPro;
 using JetBrains.Annotations;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public enum UIChange
 {
@@ -14,6 +16,8 @@ public class SetManager : MonoBehaviour
 {
     [SerializeField] int FPS = 30;
     [SerializeField] TMP_Dropdown fpsDropDown;
+
+    public TMP_InputField Clock1, Clock2, Clock3, Clock4;
 
     public GameObject SideBar;
     public GameObject SetMenu;
@@ -34,6 +38,7 @@ public class SetManager : MonoBehaviour
             switch (_uC)
             {
                 case UIChange.Simu:
+                    _isGamePaused = false;
                     SetMenu.SetActive(false);
                     PauseMenu.SetActive(false);
                     SideBar.SetActive(true);
@@ -41,6 +46,7 @@ public class SetManager : MonoBehaviour
                     Camera.transform.rotation = SimuCam.rotation;
                     break;
                 case UIChange.Set:
+                    _isGamePaused = true;
                     SetMenu.SetActive(true);
                     SideBar.SetActive(false);
                     PauseMenu.SetActive(false);
@@ -48,6 +54,7 @@ public class SetManager : MonoBehaviour
                     Camera.transform.rotation = MenuCam.rotation;
                     break;
                 case UIChange.Menu:
+                    _isGamePaused = true;
                     SetMenu.SetActive(false);
                     PauseMenu.SetActive(true);
                     SideBar.SetActive(false);
@@ -59,7 +66,7 @@ public class SetManager : MonoBehaviour
     }
 
     bool _isGamePaused = false;
-    int prevFPSDD, unsavedFPS, tck1, tck2, tck3, tck4;
+    int prevFPSDD, unsavedFPS, tck1 = 200, tck2 = 200, tck3 = 200, tck4 = 200;
 
     private void Start()
     {
@@ -74,16 +81,19 @@ public class SetManager : MonoBehaviour
         {
             if (!_isGamePaused)
             {
-                _isGamePaused = true;
                 uC = UIChange.Menu;
                 Time.timeScale = 0f;
             }
             else
             {
-                _isGamePaused = false;
                 Time.timeScale = 1f;
-                CancelOptions();
-                uC = UIChange.Simu;
+                if (uC == UIChange.Set)
+                { 
+                    CancelOptions();
+                    uC = UIChange.Menu;
+                }
+                else if (uC == UIChange.Menu)
+                    uC = UIChange.Simu;
             }
         }
     }
@@ -121,18 +131,32 @@ public class SetManager : MonoBehaviour
         prevFPSDD = fpsDropDown.value;
 
         //ck
-        sM.clock[0] = tck1; //aggiungi i modificatori di testo
+        sM.clock[0] = tck1;
         sM.clock[1] = tck2;
         sM.clock[2] = tck3;
         sM.clock[3] = tck4;
 
+        //back to menu
         uC = UIChange.Menu;
     }
 
     public void CancelOptions()
     {
+        //FPS
         unsavedFPS = FPS;
         fpsDropDown.SetValueWithoutNotify(prevFPSDD);
+
+        //ck
+        tck1 = (int)sM.clock[0];
+        Clock1.text = tck1.ToString();
+        tck2 = (int)sM.clock[1];
+        //Clock2.text = tck2.ToString();
+        tck3 = (int)sM.clock[2];
+        //Clock3.text = tck3.ToString();
+        tck4 = (int)sM.clock[3];
+        //Clock4.text = tck4.ToString();
+
+        //back to menu
         uC = UIChange.Menu;
     }
 
@@ -152,20 +176,40 @@ public class SetManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void Ck1(int input)
+    public void Ck1()
     {
-        tck1 = input;
+        string input = Clock1.text;
+
+        if (int.TryParse(input, out int num))
+        {
+            tck1 = num;
+        }
     }
-    public void Ck2(int input)
+    public void Ck2()
     {
-        tck2 = input;
+        string input = Clock2.text;
+
+        if (int.TryParse(input, out int num))
+        {
+            tck2 = num;
+        }
     }
-    public void Ck3(int input)
+    public void Ck3()
     {
-        tck3 = input;
+        string input = Clock3.text;
+
+        if (int.TryParse(input, out int num))
+        {
+            tck3 = num;
+        }
     }
-    public void Ck4(int input)
+    public void Ck4()
     {
-        tck4 = input;
+        string input = Clock4.text;
+
+        if (int.TryParse(input, out int num))
+        {
+            tck4 = num;
+        }
     }
 }
