@@ -19,7 +19,7 @@ public class StandMove : MonoBehaviour
 
     public int defStep;
     public float[] clock = { 200f, 200f, 200f, 200f };                                  //clock is step per second
-    public bool[] dir = {true, true, true, true}, en = new bool[4];
+    public bool[] dir = { true, true, true, true }, en = new bool[4];
     public int[] ms1 = {0,0,0,0}, ms2 = {0,0,0,0};
 
     private void Start()
@@ -30,10 +30,10 @@ public class StandMove : MonoBehaviour
     void Update()
     {
         //base
-        if((Input.GetKey(KeyCode.Q)) || (bW) && (!en[0]))
+        if(((Input.GetKey(KeyCode.Q)) || (bW)) && (!en[0]))
             baseUp.Rotate(0f, 0f, vel1 * CurStepToDeg(defStep, ms1[0], ms2[0]) * clock[0] * Direction(dir[0]) * Time.deltaTime);
 
-        if ((Input.GetKey(KeyCode.A)) || (bC) && (!en[0]))
+        if (((Input.GetKey(KeyCode.A)) || bC) && (!en[0]))
             baseUp.Rotate(0f, 0f, vel1 * CurStepToDeg(defStep, ms1[0], ms2[0]) * clock[0] * Direction(!dir[0]) * Time.deltaTime);
 
         //b1
@@ -43,16 +43,16 @@ public class StandMove : MonoBehaviour
         if (((Input.GetKey(KeyCode.S)) || b1C) && (!en[1]))
             b1.Rotate(0f, vel2 * CurStepToDeg(defStep, ms1[1], ms2[1]) * clock[1] * Direction(!dir[1]) * Time.deltaTime, 0f);
         //b2
-        if ((Input.GetKey(KeyCode.E)) || b2W && (!en[2]))
+        if (((Input.GetKey(KeyCode.E)) || b2W) && (!en[2]))
             b2.Rotate(0f, vel3 * CurStepToDeg(defStep, ms1[2], ms2[2]) * clock[2] * Direction(dir[2]) * Time.deltaTime, 0f);
 
-        if ((Input.GetKey(KeyCode.D)) || b2C && (!en[2]))
+        if (((Input.GetKey(KeyCode.D)) || b2C) && (!en[2]))
             b2.Rotate(0f, vel3 * CurStepToDeg(defStep, ms1[2], ms2[2]) * clock[2] * Direction(!dir[2]) * Time.deltaTime, 0f);
         //r1
-        if ((Input.GetKey(KeyCode.R)) || r1W && (!en[3]))
+        if (((Input.GetKey(KeyCode.R)) || r1W) && (!en[3]))
             r1.Rotate(vel4 * CurStepToDeg(defStep, ms1[3], ms2[3]) * clock[3] * Direction(dir[3]) * Time.deltaTime, 0f, 0f);
 
-        if ((Input.GetKey(KeyCode.F)) || r1C && (!en[0]))
+        if (((Input.GetKey(KeyCode.F)) || r1C) && (!en[3]))
             r1.Rotate(vel4 * CurStepToDeg(defStep, ms1[3], ms2[3]) * clock[3] * Direction(!dir[3]) * Time.deltaTime, 0f, 0f);
     }
 
