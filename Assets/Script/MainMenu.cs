@@ -16,6 +16,10 @@ public class MainMenu : MonoBehaviour
     public GameObject credMenu;
     public GameObject othPan;
 
+    //tooltips
+    public GameObject bugSite;
+    public GameObject discSite;
+
     private MenuState state;
 
     private void Start()
@@ -32,7 +36,7 @@ public class MainMenu : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (state == MenuState.SELECT)
             {
@@ -42,7 +46,7 @@ public class MainMenu : MonoBehaviour
             {
                 Back();
             }
-            else if(state == MenuState.MAIN)
+            else if (state == MenuState.MAIN)
             {
                 Application.Quit();
             }
@@ -83,5 +87,32 @@ public class MainMenu : MonoBehaviour
         credMenu.SetActive(false);
         othPan.SetActive(true);
         state = MenuState.MAIN;
+    }
+
+    public void BugSite()
+    {
+        Application.OpenURL("https://github.com/TheComet10/RAS/issues");
+    }
+
+    public void DiscSite()
+    {
+        Application.OpenURL("https://github.com/TheComet10/RAS/discussions");
+    }
+
+    public void BugSiteOn()
+    {
+        bugSite.SetActive(true);
+    }
+    public void BugSiteOff()
+    {
+        bugSite.SetActive(false);
+    }
+    public void DiscSiteOn()
+    {
+        discSite.SetActive(true);
+    }
+    public void DiscSiteOff()
+    {
+        discSite.SetActive(false);
     }
 }

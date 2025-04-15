@@ -19,7 +19,7 @@ public class StandMove : MonoBehaviour
 
     public int defStep;
     public float[] clock = { 200f, 200f, 200f, 200f };                                  //clock is step per second
-    public bool[] dir = { true, true, true, true }, en = new bool[4];
+    public bool[] dir = { false, false, false, false }, en = new bool[4]; 
     public int[] ms1 = {0,0,0,0}, ms2 = {0,0,0,0};
 
     private void Start()
