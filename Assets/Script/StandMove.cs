@@ -1,48 +1,78 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using TMPro;
+using Unity.VisualScripting;
 
 public class StandMove : MonoBehaviour
 {
     [SerializeField] Transform baseUp;
     [SerializeField] Transform b1;
     [SerializeField] Transform b2;
-    [SerializeField] int FPS = 30;
+    [SerializeField] Transform r1;
 
-    private bool bW, bC, b1W, b1C, b2W, b2C;
+    private bool bW, bC, b1W, b1C, b2W, b2C, r1W, r1C;
 
     public float vel1 = 1f;
     public float vel2 = 1f;
     public float vel3 = 1f;
-    void Start()
+    public float vel4 = 1f;
+
+    public int defStep;
+    public float[] clock = { 200f, 200f, 200f, 200f };                                  //clock is step per second
+    public bool[] dir = { false, false, false, false }, en = new bool[4]; 
+    public int[] ms1 = {0,0,0,0}, ms2 = {0,0,0,0};
+
+    private void Start()
     {
-        Application.targetFrameRate = FPS;
+        defStep = 200;
     }
 
     void Update()
     {
         //base
-        if((Input.GetKey(KeyCode.Q)) || (bW == true))
-            baseUp.Rotate(0f, 0f, vel1 * 45f *  Time.deltaTime);
+        if(((Input.GetKey(KeyCode.Q)) || (bW)) && (!en[0]))
+            baseUp.Rotate(0f, 0f, vel1 * CurStepToDeg(defStep, ms1[0], ms2[0]) * clock[0] * Direction(dir[0]) * Time.deltaTime);
 
-        if ((Input.GetKey(KeyCode.W)) || (bC == true))
-            baseUp.Rotate(0f, 0f, vel1 * -45f * Time.deltaTime);
+        if (((Input.GetKey(KeyCode.A)) || bC) && (!en[0]))
+            baseUp.Rotate(0f, 0f, vel1 * CurStepToDeg(defStep, ms1[0], ms2[0]) * clock[0] * Direction(!dir[0]) * Time.deltaTime);
 
-        //b1 (205/-19)
-        if (((Input.GetKey(KeyCode.E)) || b1W == true) && ((b1.localRotation.eulerAngles.y <= 205f) || (b1.localRotation.eulerAngles.y > 339f)))
-            b1.Rotate(0f, vel2 * 45f * Time.deltaTime, 0f);
+        //b1
+        if (((Input.GetKey(KeyCode.W)) || b1W) && (!en[1]))
+            b1.Rotate(0f, vel2 * CurStepToDeg(defStep, ms1[1], ms2[1]) * clock[1] * Direction(dir[1]) * Time.deltaTime, 0f);
 
-        if (((Input.GetKey(KeyCode.R)) || b1C == true) && ((b1.localRotation.eulerAngles.y < 206f) || (b1.localRotation.eulerAngles.y >= 340f)))
-            b1.Rotate(0f, vel2 * -45f * Time.deltaTime, 0f);
+        if (((Input.GetKey(KeyCode.S)) || b1C) && (!en[1]))
+            b1.Rotate(0f, vel2 * CurStepToDeg(defStep, ms1[1], ms2[1]) * clock[1] * Direction(!dir[1]) * Time.deltaTime, 0f);
         //b2
-        if ((Input.GetKey(KeyCode.T)) || b2W == true)
-            b2.Rotate(0f, vel3 * 45f * Time.deltaTime, 0f);
+        if (((Input.GetKey(KeyCode.E)) || b2W) && (!en[2]))
+            b2.Rotate(0f, vel3 * CurStepToDeg(defStep, ms1[2], ms2[2]) * clock[2] * Direction(dir[2]) * Time.deltaTime, 0f);
 
-        if ((Input.GetKey(KeyCode.Y)) || b2C == true)
-            b2.Rotate(0f, vel3 * -45f * Time.deltaTime, 0f);
+        if (((Input.GetKey(KeyCode.D)) || b2C) && (!en[2]))
+            b2.Rotate(0f, vel3 * CurStepToDeg(defStep, ms1[2], ms2[2]) * clock[2] * Direction(!dir[2]) * Time.deltaTime, 0f);
+        //r1
+        if (((Input.GetKey(KeyCode.R)) || r1W) && (!en[3]))
+            r1.Rotate(vel4 * CurStepToDeg(defStep, ms1[3], ms2[3]) * clock[3] * Direction(dir[3]) * Time.deltaTime, 0f, 0f);
 
-        if(Input.GetKey(KeyCode.Escape))
-            SceneManager.LoadScene(0);
+        if (((Input.GetKey(KeyCode.F)) || r1C) && (!en[3]))
+            r1.Rotate(vel4 * CurStepToDeg(defStep, ms1[3], ms2[3]) * clock[3] * Direction(!dir[3]) * Time.deltaTime, 0f, 0f);
+    }
+
+    float CurStepToDeg(int step, int ms1, int ms2)
+    {
+        float curStep;
+
+        int[,] ms = { { 8, 4 }, { 2, 16 } };
+
+        curStep = step * ms[ms1, ms2];
+
+        return (360/curStep); //returns degrees per steps
+    }
+
+    float Direction(bool dir)
+    {
+        if (dir)
+            return 1f;
+        else
+            return -1f;
     }
 
     public void BaseCwD()
@@ -97,17 +127,62 @@ public class StandMove : MonoBehaviour
     {
         b2C = false;
     }
+    public void R1CwD()
+    {
+        r1W = true;
+    }
+    public void R1CwU()
+    {
+        r1W = false;
+    }
 
-    public void SliderChange1(float value1)
+    public void R1CcD()
     {
-        vel1 = value1;
+        r1C = true;
     }
-    public void SliderChange2(float value2)
+    public void R1CcU()
     {
-        vel2 = value2;
+        r1C = false;
     }
-    public void SliderChange3(float value3)
+
+    public void V1A()
     {
-        vel3 = value3;
+        if (vel1 < 2)
+            vel1 += 0.1f;
+    }
+    public void V1S()
+    {
+        if (vel1 > 0)
+            vel1 -= 0.1f;
+    }
+    public void V2A()
+    {
+        if (vel2 < 2)
+            vel2 += 0.1f;
+    }
+    public void V2S()
+    {
+        if (vel2 > 0)
+            vel2 -= 0.1f;
+    }
+    public void V3A()
+    {
+        if (vel3 < 2)
+            vel3 += 0.1f;
+    }
+    public void V3S()
+    {
+        if (vel3 > 0)
+            vel3 -= 0.1f;
+    }
+    public void V4A()
+    {
+        if (vel4 < 2)
+            vel4 += 0.1f;
+    }
+    public void V4S()
+    {
+        if (vel4 > 0)
+            vel4 -= 0.1f;
     }
 }
