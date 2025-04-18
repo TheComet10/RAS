@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("RAS_AppLauncer")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("RAS_AppLauncher")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0118c508d8a4ba5b29ca430829e881cbf46454d4")]
-[assembly: System.Reflection.AssemblyProductAttribute("RAS_AppLauncer")]
-[assembly: System.Reflection.AssemblyTitleAttribute("RAS_AppLauncer")]
+[assembly: System.Reflection.AssemblyProductAttribute("RAS_AppLauncher")]
+[assembly: System.Reflection.AssemblyTitleAttribute("RAS_AppLauncher")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CPkBOvrPJU8=",
+  "dgSpecHash": "MMQNFp+ZZqg=",
   "success": true,
-  "projectFilePath": "D:\\gh\\braccioh\\RAS\\launcher\\RAS_AppLauncer\\RAS_AppLauncer.csproj",
+  "projectFilePath": "D:\\gh\\braccioh\\RAS\\launcher\\RAS_AppLauncer\\RAS_AppLauncher.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fedep\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\fedep\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
