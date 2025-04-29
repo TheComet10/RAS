@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Windows.Storage;
 
-namespace RAS_AppLauncer;
+namespace RAS_AppLauncher;
 
 enum LauncherStatus
 {

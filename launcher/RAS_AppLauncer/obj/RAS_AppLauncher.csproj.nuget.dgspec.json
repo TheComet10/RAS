@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "D:\\gh\\braccioh\\RAS\\launcher\\RAS_AppLauncer\\RAS_AppLauncer.csproj": {}
+    "D:\\gh\\braccioh\\RAS\\launcher\\RAS_AppLauncer\\RAS_AppLauncher.csproj": {}
   },
   "projects": {
-    "D:\\gh\\braccioh\\RAS\\launcher\\RAS_AppLauncer\\RAS_AppLauncer.csproj": {
+    "D:\\gh\\braccioh\\RAS\\launcher\\RAS_AppLauncer\\RAS_AppLauncher.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\gh\\braccioh\\RAS\\launcher\\RAS_AppLauncer\\RAS_AppLauncer.csproj",
-        "projectName": "RAS_AppLauncer",
-        "projectPath": "D:\\gh\\braccioh\\RAS\\launcher\\RAS_AppLauncer\\RAS_AppLauncer.csproj",
+        "projectUniqueName": "D:\\gh\\braccioh\\RAS\\launcher\\RAS_AppLauncer\\RAS_AppLauncher.csproj",
+        "projectName": "RAS_AppLauncher",
+        "projectPath": "D:\\gh\\braccioh\\RAS\\launcher\\RAS_AppLauncer\\RAS_AppLauncher.csproj",
         "packagesPath": "C:\\Users\\fedep\\.nuget\\packages\\",
         "outputPath": "D:\\gh\\braccioh\\RAS\\launcher\\RAS_AppLauncer\\obj\\",
         "projectStyle": "PackageReference",
