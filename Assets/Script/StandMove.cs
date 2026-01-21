@@ -2,9 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
+using System.IO.Ports;
 
 public class StandMove : MonoBehaviour
 {
+    SerialPort serial = new SerialPort("COM4", 115200); 
+
     [SerializeField] Transform baseUp;
     [SerializeField] Transform b1;
     [SerializeField] Transform b2;
@@ -25,16 +28,25 @@ public class StandMove : MonoBehaviour
     private void Start()
     {
         defStep = 200;
+
+        serial.Open();
+        serial.ReadTimeout = 100;
     }
 
     void Update()
     {
         //base
-        if(((Input.GetKey(KeyCode.Q)) || (bW)) && (!en[0]))
+        if (((Input.GetKey(KeyCode.Q)) || (bW)) && (!en[0]))
+        {
             baseUp.Rotate(0f, 0f, vel1 * CurStepToDeg(defStep, ms1[0], ms2[0]) * clock[0] * Direction(dir[0]) * Time.deltaTime);
+            serial.Write("?M0010000008!");
+        }
 
         if (((Input.GetKey(KeyCode.A)) || bC) && (!en[0]))
+        {
             baseUp.Rotate(0f, 0f, vel1 * CurStepToDeg(defStep, ms1[0], ms2[0]) * clock[0] * Direction(!dir[0]) * Time.deltaTime);
+            serial.Write("?M1010000008!");
+        }
 
         //b1
         if (((Input.GetKey(KeyCode.W)) || b1W) && (!en[1]))
@@ -54,6 +66,11 @@ public class StandMove : MonoBehaviour
 
         if (((Input.GetKey(KeyCode.F)) || r1C) && (!en[3]))
             r1.Rotate(vel4 * CurStepToDeg(defStep, ms1[3], ms2[3]) * clock[3] * Direction(!dir[3]) * Time.deltaTime, 0f, 0f);
+    }
+
+    private void OnApplicationQuit()
+    {
+        serial.Close();
     }
 
     float CurStepToDeg(int step, int ms1, int ms2)
