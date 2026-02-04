@@ -39,13 +39,13 @@ public class StandMove : MonoBehaviour
         if (((Input.GetKey(KeyCode.Q)) || (bW)) && (!en[0]))
         {
             baseUp.Rotate(0f, 0f, vel1 * CurStepToDeg(defStep, ms1[0], ms2[0]) * clock[0] * Direction(dir[0]) * Time.deltaTime);
-            serial.Write("?M0010000008!");
+            serial.Write("?M0002000008!");
         }
 
         if (((Input.GetKey(KeyCode.A)) || bC) && (!en[0]))
         {
             baseUp.Rotate(0f, 0f, vel1 * CurStepToDeg(defStep, ms1[0], ms2[0]) * clock[0] * Direction(!dir[0]) * Time.deltaTime);
-            serial.Write("?M1010000008!");
+            serial.Write("?M1002000008!");
         }
 
         //b1
