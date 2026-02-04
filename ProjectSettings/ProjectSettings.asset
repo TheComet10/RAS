@@ -16,12 +16,12 @@ PlayerSettings:
   productName: Robotic Arm Simulator
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
-  m_SplashScreenBackgroundColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+  m_SplashScreenBackgroundColor: {r: 0.056470275, g: 0.30396333, b: 0.4433962, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 1
   m_SplashScreenAnimation: 1
-  m_SplashScreenLogoStyle: 0
+  m_SplashScreenLogoStyle: 1
   m_SplashScreenDrawMode: 1
   m_SplashScreenBackgroundAnimationZoom: 1
   m_SplashScreenLogoAnimationZoom: 1
@@ -41,10 +41,10 @@ PlayerSettings:
     height: 1
   m_SplashScreenLogos:
   - logo: {fileID: 10404, guid: 0000000000000000f000000000000000, type: 0}
-    duration: 2.5
-  - logo: {fileID: 21300000, guid: 8374e5433c1254340a0f25d5fd4c3df4, type: 3}
+    duration: 2
+  - logo: {fileID: 21300000, guid: fff41c39fbaa08e4e8d1d61ef3d14a8b, type: 3}
     duration: 3
-  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 9c07a3b2061ec6d4ab206f26093ace8c, type: 3}
+  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: fff41c39fbaa08e4e8d1d61ef3d14a8b, type: 3}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1024
   defaultScreenHeight: 768
@@ -297,7 +297,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 9c07a3b2061ec6d4ab206f26093ace8c, type: 3}
+      m_Icon: {fileID: 2800000, guid: fff41c39fbaa08e4e8d1d61ef3d14a8b, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
